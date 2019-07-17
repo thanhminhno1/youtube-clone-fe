@@ -9,6 +9,7 @@ import theme from './modules/theme';
 import RoutePublic from './components/RoutePublic';
 import GlobalStyles from './components/GlobalStyles';
 import './App.css';
+import { EmptyLayout, MainLayout } from './components/Layouts';
 
 const AsyncHome = lazy(() => import('./container/Home'));
 
@@ -27,7 +28,12 @@ function App() {
           />
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
-              <RoutePublic isAuthenticated={false} path="/" component={AsyncHome} />
+              <RoutePublic
+                isAuthenticated={false}
+                path="/"
+                component={AsyncHome}
+                layout={MainLayout}
+              />
             </Switch>
           </Suspense>
           <GlobalStyles />
