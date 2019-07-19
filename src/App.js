@@ -4,14 +4,14 @@ import { Router, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import { ThemeProvider } from 'styled-components';
 
-import history from './modules/history';
-import theme from './modules/theme';
+import './App.css';
+import history from './utils/history';
+import theme from './utils/theme';
 import RoutePublic from './components/RoutePublic';
 import GlobalStyles from './components/GlobalStyles';
-import './App.css';
-import { EmptyLayout, MainLayout } from './components/Layouts';
+import { MainLayout } from './components/Layouts';
 
-const AsyncHome = lazy(() => import('./container/Home'));
+const AsyncHome = lazy(() => import('./pages/Home/HomeContainer'));
 
 function App() {
   return (

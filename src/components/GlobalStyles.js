@@ -1,7 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
-import { appColor } from '../modules/theme';
+import { appColor } from '../utils/theme';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Lato:400,700');

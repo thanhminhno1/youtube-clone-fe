@@ -1,0 +1,73 @@
+# source: http://localhost:3000/graphql
+# timestamp: Thu Jul 18 2019 18:21:28 GMT+0700 (Indochina Time)
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format
+outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for
+representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+`date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type Mutation {
+  createUser(input: UserInput!): User
+  updateUser(id: ID!, input: UserInput!): User
+  deleteUser(id: ID!): Boolean
+  createVideo(input: VideoInput!): Video
+  updateVideo(id: ID!, input: VideoInput!): Video
+  deleteVideo(id: ID!): Boolean
+  upViewer(id: ID!): Video
+}
+
+type Query {
+  userById(id: ID!): User
+  users: [User]
+  videoById(id: ID!): Video
+  videos: [Video]
+}
+
+"""
+A time string at UTC, such as 10:15:30Z, compliant with the `full-time` format
+outlined in section 5.6 of the RFC 3339profile of the ISO 8601 standard for
+representation of dates and times using the Gregorian calendar.
+"""
+scalar Time
+
+type User {
+  id: ID!
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+}
+
+input UserInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: ID
+}
+
+type Video {
+  id: ID!
+  title: String
+  author: String
+  viewer: Int
+  url: String
+  thumbnailUrl: String
+  like: Int
+  dislike: Int
+}
+
+input VideoInput {
+  title: String
+  author: String
+  viewer: Int
+  url: String
+}

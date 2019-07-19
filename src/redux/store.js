@@ -2,9 +2,9 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import rootReducer from '../reducers';
-import rootSaga from '../sagas';
+import rootReducer from './reducer';
 import middleware, { sagaMiddleware } from './middleware';
+import { ONCE_TILL_UNMOUNT, DAEMON } from './constants';
 
 const reducer = persistReducer(
   {
@@ -35,19 +35,32 @@ const composedEnhancers = compose(
 const configStore = (initialState = {}) => {
   const store = createStore(reducer, initialState, composedEnhancers);
 
-  sagaMiddleware.run(rootSaga);
-
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
+    module.hot.accept('./reducer', () => {
       store.replaceReducer(rootReducer());
     });
   }
 
-  store.asyncReducers = {};
+  store.injectedSagas = {};
+  store.injectedReducers = {};
+
+  store.injectSaga = (key, saga, mode) => {
+    const hasSaga = Reflect.has(store.injectedSagas, key);
+    if (!hasSaga || (mode === DAEMON && mode === ONCE_TILL_UNMOUNT)) {
+      store.injectedSagas[key] = { saga, mode, task: sagaMiddleware.run(saga) };
+    }
+  };
+
+  store.ejectSaga = key => {
+    if (!Reflect.has(store.injectedSagas, key)) return;
+    const { task, mode } = store.injectedSagas[key];
+    if (mode !== DAEMON) task.cancel();
+  };
 
   store.injectReducer = (key, _reducer) => {
-    store.asyncReducers[key] = _reducer;
-    store.replaceReducer(rootReducer(store.asyncReducers));
+    if (Reflect.has(store.injectedReducers, key)) return;
+    store.injectedReducers[key] = _reducer;
+    store.replaceReducer(rootReducer(store.injectedReducers));
     return store;
   };
 
