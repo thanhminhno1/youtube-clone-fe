@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { appColor } from '../modules/theme';
+import { appColor } from '../utils/theme';
 
 const px = value => (typeof value === 'number' ? `${value}px` : value);
 

@@ -1,0 +1,6 @@
+projects:
+  youtube-clone:
+    schemaPath: schema.graphql
+    extensions:
+      endpoints:
+        dev: 'http://localhost:3000/graphql'
