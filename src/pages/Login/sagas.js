@@ -7,7 +7,7 @@ import {
 export function* login() {
   try {
     yield delay(400);
-
+    debugger
     yield put({ type: LOGIN_SUCCESS });
   } catch (err) {
     yield put({ type: LOGIN_FAIL, payload: err });
@@ -18,10 +18,10 @@ export function* logout() {
   try {
     yield delay(200);
 
-    yield put({ type: USER_LOGOUT_SUCCESS });
+    yield put({ type: LOGOUT_SUCCESS });
   } catch (err) {
     yield put({
-      type: USER_LOGOUT_FAILURE,
+      type: LOGOUT_FAIL,
       payload: err,
     });
   }
@@ -29,6 +29,6 @@ export function* logout() {
 
 export default function* root() {
   yield all([
-    takeLatest(ActionTypes.USER_LOGIN, login),
+    takeLatest(LOGIN, login),
   ]);
 }

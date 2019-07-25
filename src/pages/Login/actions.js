@@ -1,4 +1,6 @@
-import { createReduxActions } from '../../redux/utils/createReduxActions'; 
+import { createReduxActions } from '../../redux/utils/createReduxActions';
+import { createAction } from 'redux-actions'
+
 import { context } from './constants';
 
 export const [
@@ -6,3 +8,5 @@ export const [
   loginFail,
   loginSuccess,
 ] = createReduxActions(context);
+
+export const loginAction = createAction('login');
