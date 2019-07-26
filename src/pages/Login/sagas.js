@@ -7,7 +7,6 @@ import {
 export function* login() {
   try {
     yield delay(400);
-    debugger
     yield put({ type: LOGIN_SUCCESS });
   } catch (err) {
     yield put({ type: LOGIN_FAIL, payload: err });

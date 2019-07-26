@@ -9,10 +9,11 @@ import history from './utils/history';
 import theme from './utils/theme';
 import RoutePublic from './components/RoutePublic';
 import GlobalStyles from './components/GlobalStyles';
-import { MainLayout, EmptyLayout } from './components/Layouts';
+import { MainLayout, EmptyLayout, PostLayout } from './components/Layouts';
 
 const AsyncHome = lazy(() => import('./pages/Home/HomeContainer'));
 const Login = lazy(() => import('./pages/Login/LoginContainer'));
+const Post = lazy(() => import('./pages/Post/PostContainer'));
 
 function App() {
   return (
@@ -41,6 +42,13 @@ function App() {
                 path="/login"
                 component={Login}
                 layout={EmptyLayout}
+                exact
+              />
+              <RoutePublic
+                isAuthenticated={false}
+                path="/post"
+                component={Post}
+                layout={PostLayout}
                 exact
               />
             </Switch>

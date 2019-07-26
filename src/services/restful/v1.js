@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const DEFAULT_API_CONFIG = {
-  baseURL: '/',
+  baseURL: 'https://5d39244bd8bb290014d27fa8.mockapi.io/api/v1/',
   timeOut: 30000,
 };
 

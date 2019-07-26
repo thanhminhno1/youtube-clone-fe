@@ -66,7 +66,6 @@ function Login(props) {
       }}
       onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
-          debugger
           props.login({values, meta: { setSubmitting }});
       }}
     >
